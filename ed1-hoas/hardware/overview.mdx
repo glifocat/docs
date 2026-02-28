@@ -83,11 +83,11 @@ flowchart TB
 
 ### Sensors
 
-| Component | Part Number   | Interface    | Address | Notes                                         |
-| --------- | ------------- | ------------ | ------- | --------------------------------------------- |
-| U13       | MXC6655XA     | I2C          | 0x15    | 3-axis accelerometer                          |
-| Q5        | ALS-PT19-315C | ADC (GPIO34) | -       | Light sensor                                  |
-| U12       | TSOP75438TT   | GPIO35       | -       | IR receiver 38kHz (Rev 2.3); GPIO33 (Rev 1.0) |
+| Ref | Part | Interface | Addr | Notes |
+| --- | ---- | --------- | ---- | ----- |
+| U13 | MXC6655XA | I2C | 0x15 | 3-axis accelerometer |
+| Q5 | ALS-PT19-315C | ADC (GPIO34) | - | Light sensor |
+| U12 | TSOP75438TT | GPIO35 | - | IR RX 38kHz; GPIO33 on Rev 1.0 |
 
 ### Input/Output
 
@@ -124,8 +124,8 @@ flowchart LR
 
 ### MCP23009 to motor pin mapping
 
-| MCP23009 GPIO | Signal | ULN2004A | Motor | Coil |
-| ------------- | ------ | -------- | ----- | ---- |
+| GPIO | Signal | Driver | Motor | Coil |
+| ---- | ------ | ------ | ----- | ---- |
 | GP0           | I2D    | U8 pin 1 | M2    | D    |
 | GP1           | I2C    | U8 pin 2 | M2    | C    |
 | GP2           | I2B    | U8 pin 3 | M2    | B    |

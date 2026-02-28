@@ -160,26 +160,30 @@ Use the "IR Send Slot X" buttons to send previously saved codes.
 
 ## Available entities
 
-| Entity                                        | Type   | Description                |
-| --------------------------------------------- | ------ | -------------------------- |
-| `text.ed1_smartir_bridge_last_ir_protocol`    | Text   | Last detected protocol     |
-| `text.ed1_smartir_bridge_last_ir_code`        | Text   | Last received code         |
-| `sensor.ed1_smartir_bridge_ir_activity_count` | Sensor | Received code counter      |
-| `button.ed1_smartir_bridge_ir_learn_mode`     | Button | Activate learn mode        |
-| `button.ed1_smartir_bridge_ir_learn_stop`     | Button | Stop learn mode            |
-| `button.ed1_smartir_bridge_ir_send_slot_0`    | Button | Send code from slot 0      |
+All entity IDs are prefixed with `ed1_smartir_bridge_`.
+
+| Entity | Type | Description |
+| ------ | ---- | ----------- |
+| `text.…last_ir_protocol` | Text | Last detected protocol |
+| `text.…last_ir_code` | Text | Last received code |
+| `sensor.…ir_activity_count` | Sensor | Received code counter |
+| `button.…ir_learn_mode` | Button | Activate learn mode |
+| `button.…ir_learn_stop` | Button | Stop learn mode |
+| `button.…ir_send_slot_0` | Button | Send code from slot 0 |
 
 ## Available services
 
-| Service                                       | Description         | Parameters           |
-| --------------------------------------------- | ------------------- | -------------------- |
-| `esphome.ed1_smartir_bridge_send_ir_nec`      | Send NEC code       | `address`, `command` |
-| `esphome.ed1_smartir_bridge_send_ir_lg`       | Send LG code        | `data`               |
-| `esphome.ed1_smartir_bridge_send_ir_samsung`  | Send Samsung code   | `data`               |
-| `esphome.ed1_smartir_bridge_send_ir_sony`     | Send Sony code      | `data`, `nbits`      |
-| `esphome.ed1_smartir_bridge_send_ir_rc5`      | Send RC5 code       | `address`, `command` |
-| `esphome.ed1_smartir_bridge_start_learn_mode` | Start learn mode    | `slot` (0-9)         |
-| `esphome.ed1_smartir_bridge_stop_learn_mode`  | Stop learn mode     | -                    |
+All service IDs are prefixed with `esphome.ed1_smartir_bridge_`.
+
+| Service | Description | Parameters |
+| ------- | ----------- | ---------- |
+| `…send_ir_nec` | Send NEC code | `address`, `command` |
+| `…send_ir_lg` | Send LG code | `data` |
+| `…send_ir_samsung` | Send Samsung code | `data` |
+| `…send_ir_sony` | Send Sony code | `data`, `nbits` |
+| `…send_ir_rc5` | Send RC5 code | `address`, `command` |
+| `…start_learn_mode` | Start learn mode | `slot` (0-9) |
+| `…stop_learn_mode` | Stop learn mode | - |
 
 ## Finding device codes
 
