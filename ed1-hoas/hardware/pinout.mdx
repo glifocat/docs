@@ -34,20 +34,11 @@ Quick reference for GPIO assignments on the ED1 Citilab Board.
 
 ### SPI bus
 
-```text
-CLK:  GPIO18
-MOSI: GPIO23
-MISO: GPIO19
-```
-
-Used by: TFT Display (ST7735)
+GPIO18 (CLK), GPIO23 (MOSI), GPIO19 (MISO). Used by TFT Display (ST7735).
 
 ### I2C bus
 
-```text
-SDA: GPIO21
-SCL: GPIO22
-```
+GPIO21 (SDA), GPIO22 (SCL).
 
 **Rev 2.3:**
 | Device | Address | Function |
@@ -63,36 +54,26 @@ SCL: GPIO22
 
 ### MCP23009 GPIO mapping (stepper motors)
 
-```text
-GP0: Motor 2 Coil D ──► ULN2004A U8 ──► M2
-GP1: Motor 2 Coil C ──► ULN2004A U8 ──► M2
-GP2: Motor 2 Coil B ──► ULN2004A U8 ──► M2
-GP3: Motor 2 Coil A ──► ULN2004A U8 ──► M2
-GP4: Motor 1 Coil D ──► ULN2004A U7 ──► M1
-GP5: Motor 1 Coil C ──► ULN2004A U7 ──► M1
-GP6: Motor 1 Coil B ──► ULN2004A U7 ──► M1
-GP7: Motor 1 Coil A ──► ULN2004A U7 ──► M1
-```
+| MCP23009 GPIO | Coil | Driver       | Motor |
+| ------------- | ---- | ------------ | ----- |
+| GP0           | D    | ULN2004A U8  | M2    |
+| GP1           | C    | ULN2004A U8  | M2    |
+| GP2           | B    | ULN2004A U8  | M2    |
+| GP3           | A    | ULN2004A U8  | M2    |
+| GP4           | D    | ULN2004A U7  | M1    |
+| GP5           | C    | ULN2004A U7  | M1    |
+| GP6           | B    | ULN2004A U7  | M1    |
+| GP7           | A    | ULN2004A U7  | M1    |
 
 ## Touch button mapping
 
-```text
-              ┌─────────────┐
-              │     UP      │
-              │   GPIO4     │
-              └─────────────┘
-┌─────────┐   ┌───────────┐   ┌─────────┐
-│  LEFT   │   │           │   │  RIGHT  │
-│ GPIO2   │   │    TFT    │   │ GPIO27  │
-└─────────┘   │  Display  │   └─────────┘
-              │           │
-┌─────────┐   └───────────┘   ┌─────────┐
-│   OK    │                   │    X    │
-│ GPIO15  │                   │ GPIO14  │
-└─────────┘   ┌─────────────┐ └─────────┘
-              │    DOWN     │
-              │   GPIO13    │
-              └─────────────┘
+```mermaid
+block-beta
+    columns 3
+    space UP["UP · GPIO4"] space
+    LEFT["LEFT · GPIO2"] TFT["TFT Display"] RIGHT["RIGHT · GPIO27"]
+    OK["OK · GPIO15"] space X["X · GPIO14"]
+    space DOWN["DOWN · GPIO13"] space
 ```
 
 ## Analog inputs
@@ -141,12 +122,7 @@ Input-only ADC pins, directly connected to ESP32. Active-low.
 | A3   | GPIO38 | ADC1_CH2    | -               |
 | A4   | GPIO39 | ADC1_CH3    | SVN (Sensor VN) |
 
-```text
-A1: [S=GPIO36] [+=3.3V] [-=GND]
-A2: [S=GPIO37] [+=3.3V] [-=GND]
-A3: [S=GPIO38] [+=3.3V] [-=GND]
-A4: [S=GPIO39] [+=3.3V] [-=GND]
-```
+All analog ports share a 3-pin connector: **S** (signal), **+** (3.3V), **-** (GND).
 
 ### Digital ports - J2 (right side)
 
@@ -157,12 +133,7 @@ A4: [S=GPIO39] [+=3.3V] [-=GND]
 | D3   | GPIO32 | ADC1_CH4    | -                    |
 | D4   | GPIO26 | ADC2_CH9    | Also buzzer output   |
 
-```text
-D1: [S=GPIO12] [+=5V] [-=GND]
-D2: [S=GPIO25] [+=5V] [-=GND]
-D3: [S=GPIO32] [+=5V] [-=GND]
-D4: [S=GPIO26] [+=5V] [-=GND]
-```
+All digital ports share a 3-pin connector: **S** (signal), **+** (5V), **-** (GND).
 
 **Note:** D1 (GPIO12) and D4 (GPIO26) are used internally. D2 (GPIO25) and D3 (GPIO32) are available for external use.
 
@@ -175,30 +146,26 @@ D4: [S=GPIO26] [+=5V] [-=GND]
 | 3   | TX    | GPIO1  | UART TX  |
 | 4   | RX    | GPIO3  | UART RX  |
 
-```text
-DA: [DA=GPIO21] [CL=GPIO22] [TX=GPIO1] [RX=GPIO3]
-```
-
 ### Grove connector (J11)
 
-```text
-Pin 1: VDD33 (3.3V)
-Pin 2: GND
-Pin 3: SDA (GPIO21)
-Pin 4: SCL (GPIO22)
-```
+| Pin | Signal | Connection |
+| --- | ------ | ---------- |
+| 1   | VDD33  | 3.3V       |
+| 2   | GND    | Ground     |
+| 3   | SDA    | GPIO21     |
+| 4   | SCL    | GPIO22     |
 
 ## Stepper motor connectors
 
 ### M1 & M2 (28BYJ-48)
 
-```text
-Pin 1: Coil A
-Pin 2: Coil B
-Pin 3: Coil C
-Pin 4: Coil D
-Pin 5: VDD5 (common)
-```
+| Pin | Signal          |
+| --- | --------------- |
+| 1   | Coil A          |
+| 2   | Coil B          |
+| 3   | Coil C          |
+| 4   | Coil D          |
+| 5   | VDD5 (common)   |
 
 Controlled via MCP23009 I/O expander and ULN2004A drivers.
 

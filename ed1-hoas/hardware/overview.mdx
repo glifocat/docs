@@ -24,42 +24,27 @@ The ED1 is an ESP32-based educational development board designed by [Citilab Edu
 
 ## Block diagram
 
-```text
-                           ┌─────────────────────────────────────┐
-                           │           ED1 Board                 │
-    ┌─────────┐            │                                     │
-    │  USB-C  │──►[NCP347]─┼──►[MP2607DL]──►[PAM2401]──►5V      │
-    └─────────┘  Overvolt  │   Li-Po Chrg    Boost               │
-                 Protect   │       │                              │
-                           │       ▼         [ADP2108]──►3.3V    │
-                           │   ┌───────┐     Step-down           │
-                           │   │Battery│                          │
-                           │   │16340  │                          │
-                           │   └───────┘                          │
-                           │                                      │
-    ┌─────────┐            │   ┌─────────────────┐               │
-    │CP2102N  │◄──────────►│   │    ESP32-SIP    │               │
-    │USB-UART │            │   │                 │               │
-    └─────────┘            │   │  GPIO  I2C  SPI │               │
-                           │   └──┬──────┬────┬──┘               │
-                           │      │      │    │                   │
-              ┌────────────┼──────┘      │    └───────┐          │
-              │            │             │            │          │
-              ▼            │             ▼            ▼          │
-    ┌─────────────────┐    │    ┌─────────────┐  ┌────────┐     │
-    │  Touch Buttons  │    │    │ I2C Devices │  │  TFT   │     │
-    │  (6x capacitive)│    │    │ MXC6655XA   │  │ST7735  │     │
-    └─────────────────┘    │    │ MCP23009    │  │128x128 │     │
-                           │    └─────────────┘  └────────┘     │
-              ┌────────────┼─────────────────────────┐          │
-              │            │                         │          │
-              ▼            │                         ▼          │
-    ┌─────────────────┐    │               ┌─────────────────┐  │
-    │   LED Matrix    │    │               │   Peripherals   │  │
-    │  32x8 WS2812    │    │               │ IR RX, LDR,     │  │
-    │  (256 LEDs)     │    │               │ Buzzer, Steppers│  │
-    └─────────────────┘    │               └─────────────────┘  │
-                           └─────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph Power["Power management"]
+        USB["USB-C"] --> NCP["NCP347\nOvervolt protection"]
+        NCP --> MP["MP2607DL\nLi-Po charger"]
+        MP <--> BAT["Battery\n16340 Li-Ion"]
+        MP --> PAM["PAM2401\nBuck-boost → 5V"]
+        PAM --> ADP["ADP2108\nStep-down → 3.3V"]
+    end
+
+    subgraph MCU["Main controller"]
+        CP["CP2102N\nUSB-UART"] <--> ESP["ESP32-SIP\nGPIO · I2C · SPI"]
+    end
+
+    USB --> CP
+
+    ESP --> TOUCH["Touch buttons\n6x capacitive"]
+    ESP --> I2C["I2C devices\nMXC6655XA · MCP23009"]
+    ESP --> TFT["TFT display\nST7735 128x128"]
+    ESP --> LED["LED matrix\n32x8 WS2812 · 256 LEDs"]
+    ESP --> PERIPH["Peripherals\nIR RX · LDR · Buzzer · Steppers"]
 ```
 
 ## Components
@@ -130,9 +115,11 @@ The ED1 board includes built-in support for two 28BYJ-48 stepper motors via the 
 
 ### Signal path
 
-```text
-ESP32 ──I2C──► MCP23009 (0x20) ──► ULN2004A ──► 28BYJ-48 Motor
-               GPIO Expander        Darlington
+```mermaid
+flowchart LR
+    ESP["ESP32"] -->|I2C| MCP["MCP23009\n0x20\nGPIO expander"]
+    MCP --> ULN["ULN2004A\nDarlington driver"]
+    ULN --> MOT["28BYJ-48\nStepper motor"]
 ```
 
 ### MCP23009 to motor pin mapping
@@ -247,10 +234,13 @@ The charger status signals (STAT1, STAT2, DONE, CHR) from the MP2607DL are route
 
 To read battery voltage, add an external voltage divider to an analog expansion port:
 
-```text
-VBAT ──[100kΩ]──┬──[100kΩ]── GND
-                │
-                └── A1 port (GPIO36)
+```mermaid
+flowchart LR
+    VBAT["VBAT\n3.0–4.2V"] --- R1["100kΩ"]
+    R1 --- MID((" "))
+    MID --- R2["100kΩ"]
+    R2 --- GND["GND"]
+    MID --> GPIO["A1 port\nGPIO36\n~1.5–2.1V"]
 ```
 
 This divides the 3.0-4.2V battery range to ~1.5-2.1V, safe for the ESP32 ADC. ESPHome configuration:

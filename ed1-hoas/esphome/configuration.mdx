@@ -7,29 +7,34 @@ Detailed explanation of the ESPHome configuration for the ED1 board.
 
 ## File structure
 
-```text
-ed1-hoas/
-├── ed1-message.sample.yaml        # Message display with chat log (HA API)
-├── ed1-mqtt.sample.yaml           # Dashboard with MQTT messaging
-├── ed1-status.sample.yaml         # Status display (WiFi, sensors, uptime, optional IR)
-├── secrets.yaml                   # Credentials (git-ignored)
-├── secrets.sample.yaml            # Template
-├── packages/                      # Modular ESPHome components
-│   ├── core.yaml                  # ESP32, logger, API, OTA, WiFi
-│   ├── hardware.yaml              # SPI and I2C buses
-│   ├── display.yaml               # TFT ST7735 display
-│   ├── fonts.yaml                 # Fonts + Material Symbols icons
-│   ├── buzzer.yaml                # PWM output + RTTTL melodies
-│   ├── buttons.yaml               # 6 capacitive touch buttons
-│   ├── sensors.yaml               # WiFi, uptime, temp, light sensors
-│   ├── bluetooth.yaml             # BLE tracker + proxy
-│   ├── ir-receiver.yaml           # 38kHz IR receiver
-│   ├── led-matrix.yaml            # 32x8 WS2812B LED matrix
-│   ├── mqtt.yaml                  # MQTT broker connectivity (optional)
-│   └── stepper.yaml               # 28BYJ-48 stepper motors via MCP23009
-└── fonts/
-    └── pixelmix/                  # Pixelmix font (CC BY-NC-ND 3.0)
-```
+<Tree>
+  <Tree.Folder name="ed1-hoas" defaultOpen>
+    <Tree.File name="ed1-message.sample.yaml" />
+    <Tree.File name="ed1-mqtt.sample.yaml" />
+    <Tree.File name="ed1-status.sample.yaml" />
+    <Tree.File name="secrets.yaml" />
+    <Tree.File name="secrets.sample.yaml" />
+    <Tree.Folder name="packages" defaultOpen>
+      <Tree.File name="core.yaml" />
+      <Tree.File name="hardware.yaml" />
+      <Tree.File name="display.yaml" />
+      <Tree.File name="fonts.yaml" />
+      <Tree.File name="buzzer.yaml" />
+      <Tree.File name="buttons.yaml" />
+      <Tree.File name="sensors.yaml" />
+      <Tree.File name="bluetooth.yaml" />
+      <Tree.File name="ir-receiver.yaml" />
+      <Tree.File name="led-matrix.yaml" />
+      <Tree.File name="mqtt.yaml" />
+      <Tree.File name="stepper.yaml" />
+    </Tree.Folder>
+    <Tree.Folder name="fonts">
+      <Tree.Folder name="pixelmix">
+        <Tree.File name="pixelmix.ttf" />
+      </Tree.Folder>
+    </Tree.Folder>
+  </Tree.Folder>
+</Tree>
 
 ## Modular package system
 
@@ -190,17 +195,17 @@ display:
       // Drawing code here
 ```
 
-**Display Layout:**
-```text
-┌────────────────────────┐
-│     "ED1 FULL"         │  <- Green, large font
-│                        │
-│    192.168.1.100       │  <- IP address
-│                        │
-│     T: 45.2 C          │  <- CPU temp
-│                        │
-│   [Matrix Text]        │  <- Yellow, or "Matrix Ready"
-└────────────────────────┘
+**Display layout:**
+
+```mermaid
+block-beta
+    columns 1
+    block:display["TFT 128x128"]
+        A["'ED1 FULL' — green, large font"]
+        B["192.168.1.100 — IP address"]
+        C["T: 45.2 C — CPU temp"]
+        D["Matrix text — yellow"]
+    end
 ```
 
 **Model Options:**

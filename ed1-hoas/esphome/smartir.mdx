@@ -11,21 +11,12 @@ SmartIR is a Home Assistant integration that lets you control climate devices, f
 
 ## Architecture
 
-```text
-┌─────────────┐     IR      ┌─────────┐     WiFi      ┌──────────────┐
-│ Remote      │────────────→│   ED1   │──────────────→│  Home        │
-│ control     │             │ SmartIR │               │  Assistant   │
-└─────────────┘             │ Bridge  │               │  + SmartIR   │
-                            │         │←──────────────│              │
-                            │         │   Services    │              │
-                            └────┬────┘               └──────────────┘
-                                 │
-                                 │ IR
-                                 ↓
-                            ┌─────────┐
-                            │ TV/A-C  │
-                            │ etc.    │
-                            └─────────┘
+```mermaid
+flowchart LR
+    RC["Remote\ncontrol"] -->|IR| ED1["ED1\nSmartIR Bridge"]
+    ED1 -->|WiFi| HA["Home Assistant\n+ SmartIR"]
+    HA -->|Services| ED1
+    ED1 -->|IR| DEV["TV / A-C\netc."]
 ```
 
 ## Required hardware
