@@ -5,7 +5,7 @@ description: "Available entities, dashboard examples, automation recipes, and Bl
 
 How to use the ED1 board with Home Assistant.
 
-## Available Entities
+## Available entities
 
 After adding the device, these entities become available:
 
@@ -30,7 +30,7 @@ After adding the device, these entities become available:
 | `sensor.ed1_cpu_temperature` | Sensor | °C | ESP32 internal temperature |
 | `sensor.ed1_uptime` | Sensor | s | Device uptime |
 
-### Binary Sensors (Touch Buttons)
+### Binary sensors (touch buttons)
 
 | Entity ID | Type | Description |
 |-----------|------|-------------|
@@ -53,7 +53,7 @@ After adding the device, these entities become available:
 |-----------|------|-------------|
 | `text_sensor.ed1_ip_address` | Text Sensor | Device IP address |
 
-### Stepper Motors (requires stepper package)
+### Stepper motors (requires stepper package)
 
 | Entity ID | Type | Description |
 |-----------|------|-------------|
@@ -67,13 +67,13 @@ After adding the device, these entities become available:
 
 **Note**: 512 steps = 1 full rotation (360°)
 
-### IR Receiver (Logs Only)
+### IR receiver (logs only)
 
 The IR receiver does not create Home Assistant entities. Received IR codes appear in the ESPHome logs and can be used to trigger automations via ESPHome actions. See [ESPHome configuration](/ed1-hoas/esphome/configuration) for configuration details.
 
-## Dashboard Examples
+## Dashboard examples
 
-### Basic Card
+### Basic card
 
 ```yaml
 type: entities
@@ -87,7 +87,7 @@ entities:
   - entity: sensor.ed1_wifi_signal
 ```
 
-### LED Matrix Control Card
+### LED matrix control card
 
 ```yaml
 type: vertical-stack
@@ -101,7 +101,7 @@ cards:
         name: Display Text
 ```
 
-### Touch Buttons Status
+### Touch buttons status
 
 ```yaml
 type: glance
@@ -121,7 +121,7 @@ entities:
     name: X
 ```
 
-### Sensor Gauges
+### Sensor gauges
 
 ```yaml
 type: horizontal-stack
@@ -146,9 +146,9 @@ cards:
       red: 70
 ```
 
-## Automation Examples
+## Automation examples
 
-### Display Notification on Matrix
+### Display notification on matrix
 
 ```yaml
 alias: "Display notification on ED1"
@@ -171,7 +171,7 @@ action:
       value: ""
 ```
 
-### Button Controls Light
+### Button controls light
 
 ```yaml
 alias: "ED1 OK button toggles living room"
@@ -185,7 +185,7 @@ action:
       entity_id: light.living_room
 ```
 
-### Button Navigation Menu
+### Button navigation menu
 
 ```yaml
 alias: "ED1 Up button - next scene"
@@ -199,7 +199,7 @@ action:
       entity_id: input_select.scene_selector
 ```
 
-### Light Level Automation
+### Light level automation
 
 ```yaml
 alias: "Auto lights based on ED1 sensor"
@@ -217,7 +217,7 @@ action:
       entity_id: light.desk_lamp
 ```
 
-### Display Current Time
+### Display current time
 
 ```yaml
 alias: "Update ED1 with time every minute"
@@ -232,7 +232,7 @@ action:
       value: "{{ now().strftime('%H:%M') }}"
 ```
 
-### Display Weather
+### Display weather
 
 ```yaml
 alias: "Show weather on ED1"
@@ -247,7 +247,7 @@ action:
       value: "{{ state_attr('weather.home', 'temperature') }}C"
 ```
 
-### Buzzer Alert on Motion
+### Buzzer alert on motion
 
 ```yaml
 alias: "ED1 buzzer on motion"
@@ -266,7 +266,7 @@ action:
       entity_id: switch.ed1_buzzer
 ```
 
-### Stepper Motor Control
+### Stepper motor control
 
 ```yaml
 alias: "Rotate Motor 1 half turn"
@@ -282,7 +282,7 @@ action:
       value: 256  # Half turn (180°)
 ```
 
-### Open/Close with Steppers
+### Open/close with steppers
 
 ```yaml
 alias: "ED1 Motor Blinds Control"
@@ -315,7 +315,7 @@ action:
 
 ## Scripts
 
-### Flash Matrix Red (Alert)
+### Flash matrix red (alert)
 
 ```yaml
 flash_ed1_alert:
@@ -339,7 +339,7 @@ flash_ed1_alert:
               milliseconds: 200
 ```
 
-### Cycle Through Colors
+### Cycle through colors
 
 ```yaml
 ed1_color_cycle:
@@ -366,7 +366,7 @@ ed1_color_cycle:
         rgb_color: [0, 0, 255]
 ```
 
-## Bluetooth Proxy
+## Bluetooth proxy
 
 The ED1 acts as a Bluetooth proxy, extending Home Assistant's BLE range.
 
@@ -375,14 +375,14 @@ The ED1 acts as a Bluetooth proxy, extending Home Assistant's BLE range.
 2. In Home Assistant, go to Settings > Devices & Services
 3. Bluetooth integration will automatically use the ED1 as a proxy
 
-### Use Cases
+### Use cases
 - Detect BLE devices further from HA server
 - Track Bluetooth thermometers, plant sensors
 - Connect to Bluetooth devices in other rooms
 
 ## Tips
 
-### Reduce API Traffic
+### Reduce API traffic
 If the device disconnects frequently, reduce sensor update rates:
 ```yaml
 sensor:
@@ -390,7 +390,7 @@ sensor:
     update_interval: 300s  # 5 minutes instead of 60s
 ```
 
-### Entity Naming
+### Entity naming
 Entity IDs are derived from `name` fields. To customize:
 ```yaml
 sensor:
@@ -398,7 +398,7 @@ sensor:
     name: "ED1 CPU Temp"  # becomes sensor.ed1_cpu_temp
 ```
 
-### Multiple Boards
+### Multiple boards
 For multiple ED1 boards, change the device name:
 ```yaml
 esphome:

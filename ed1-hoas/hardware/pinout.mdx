@@ -5,7 +5,7 @@ description: "GPIO assignments, bus configurations, and connector pinouts for th
 
 Quick reference for GPIO assignments on the ED1 Citilab Board.
 
-## GPIO Assignment Table
+## GPIO assignment table
 
 | GPIO  | Function       | ESPHome ID           | Direction | Notes                                        |
 | ----- | -------------- | -------------------- | --------- | -------------------------------------------- |
@@ -30,11 +30,11 @@ Quick reference for GPIO assignments on the ED1 Citilab Board.
 | 32    | IR Transmitter | `remote_transmitter` | O         | Rev 1.0 only                                 |
 | 33/35 | IR Receiver    | `remote_receiver`    | I         | TSOP75438TT (GPIO33 Rev 1.0, GPIO35 Rev 2.3) |
 
-## Bus Assignments
+## Bus assignments
 
-### SPI Bus
+### SPI bus
 
-```
+```text
 CLK:  GPIO18
 MOSI: GPIO23
 MISO: GPIO19
@@ -42,9 +42,9 @@ MISO: GPIO19
 
 Used by: TFT Display (ST7735)
 
-### I2C Bus
+### I2C bus
 
-```
+```text
 SDA: GPIO21
 SCL: GPIO22
 ```
@@ -61,9 +61,9 @@ SCL: GPIO22
 | LIS3DH | 0x19 | Accelerometer |
 | MCP23017 | 0x20 | I/O Expander (16 GPIO pins) |
 
-### MCP23009 GPIO Mapping (Stepper Motors)
+### MCP23009 GPIO mapping (stepper motors)
 
-```
+```text
 GP0: Motor 2 Coil D ──► ULN2004A U8 ──► M2
 GP1: Motor 2 Coil C ──► ULN2004A U8 ──► M2
 GP2: Motor 2 Coil B ──► ULN2004A U8 ──► M2
@@ -74,9 +74,9 @@ GP6: Motor 1 Coil B ──► ULN2004A U7 ──► M1
 GP7: Motor 1 Coil A ──► ULN2004A U7 ──► M1
 ```
 
-## Touch Button Mapping
+## Touch button mapping
 
-```
+```text
               ┌─────────────┐
               │     UP      │
               │   GPIO4     │
@@ -95,22 +95,22 @@ GP7: Motor 1 Coil A ──► ULN2004A U7 ──► M1
               └─────────────┘
 ```
 
-## Analog Inputs
+## Analog inputs
 
 | GPIO | Function     | ADC Channel | Attenuation   |
 | ---- | ------------ | ----------- | ------------- |
 | 34   | Light Sensor | ADC1_CH6    | 12dB (0-3.3V) |
 
-## LED Matrix
+## LED matrix
 
 - **Data Pin**: GPIO12
 - **Type**: WS2812X (GRB color order)
 - **Count**: 256 LEDs (32 columns x 8 rows)
 - **Layout**: Serpentine (zigzag) pattern
 
-### Pixel Mapping
+### Pixel mapping
 
-```
+```text
 Column:  0   1   2   3  ...
 Row 0:   0   15  16  31 ...
 Row 1:   1   14  17  30 ...
@@ -128,9 +128,9 @@ else
     pixel = (x * 8) + (7 - y);
 ```
 
-## Expansion Connectors
+## Expansion connectors
 
-### Analog Ports - J5 (Left Side)
+### Analog ports - J5 (left side)
 
 Input-only ADC pins, directly connected to ESP32. Active-low.
 
@@ -141,14 +141,14 @@ Input-only ADC pins, directly connected to ESP32. Active-low.
 | A3   | GPIO38 | ADC1_CH2    | -               |
 | A4   | GPIO39 | ADC1_CH3    | SVN (Sensor VN) |
 
-```
+```text
 A1: [S=GPIO36] [+=3.3V] [-=GND]
 A2: [S=GPIO37] [+=3.3V] [-=GND]
 A3: [S=GPIO38] [+=3.3V] [-=GND]
 A4: [S=GPIO39] [+=3.3V] [-=GND]
 ```
 
-### Digital Ports - J2 (Right Side)
+### Digital ports - J2 (right side)
 
 | Port | GPIO   | ADC Channel | Notes                |
 | ---- | ------ | ----------- | -------------------- |
@@ -157,7 +157,7 @@ A4: [S=GPIO39] [+=3.3V] [-=GND]
 | D3   | GPIO32 | ADC1_CH4    | -                    |
 | D4   | GPIO26 | ADC2_CH9    | Also buzzer output   |
 
-```
+```text
 D1: [S=GPIO12] [+=5V] [-=GND]
 D2: [S=GPIO25] [+=5V] [-=GND]
 D3: [S=GPIO32] [+=5V] [-=GND]
@@ -166,7 +166,7 @@ D4: [S=GPIO26] [+=5V] [-=GND]
 
 **Note:** D1 (GPIO12) and D4 (GPIO26) are used internally. D2 (GPIO25) and D3 (GPIO32) are available for external use.
 
-### I2C/Serial - J6 (Bottom Left)
+### I2C/serial - J6 (bottom left)
 
 | Pin | Label | GPIO   | Function |
 | --- | ----- | ------ | -------- |
@@ -175,24 +175,24 @@ D4: [S=GPIO26] [+=5V] [-=GND]
 | 3   | TX    | GPIO1  | UART TX  |
 | 4   | RX    | GPIO3  | UART RX  |
 
-```
+```text
 DA: [DA=GPIO21] [CL=GPIO22] [TX=GPIO1] [RX=GPIO3]
 ```
 
-### Grove Connector (J11)
+### Grove connector (J11)
 
-```
+```text
 Pin 1: VDD33 (3.3V)
 Pin 2: GND
 Pin 3: SDA (GPIO21)
 Pin 4: SCL (GPIO22)
 ```
 
-## Stepper Motor Connectors
+## Stepper motor connectors
 
 ### M1 & M2 (28BYJ-48)
 
-```
+```text
 Pin 1: Coil A
 Pin 2: Coil B
 Pin 3: Coil C
@@ -202,7 +202,7 @@ Pin 5: VDD5 (common)
 
 Controlled via MCP23009 I/O expander and ULN2004A drivers.
 
-## Reserved/Internal GPIOs
+## Reserved/internal GPIOs
 
 These GPIOs are used internally by the ESP32 or board hardware:
 

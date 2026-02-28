@@ -5,9 +5,9 @@ description: "Package system, component reference, and customization guide for t
 
 Detailed explanation of the ESPHome configuration for the ED1 board.
 
-## File Structure
+## File structure
 
-```
+```text
 ed1-hoas/
 ├── ed1-message.sample.yaml        # Message display with chat log (HA API)
 ├── ed1-mqtt.sample.yaml           # Dashboard with MQTT messaging
@@ -31,11 +31,11 @@ ed1-hoas/
     └── pixelmix/                  # Pixelmix font (CC BY-NC-ND 3.0)
 ```
 
-## Modular Package System
+## Modular package system
 
 This project uses ESPHome's package system for modularity. Each sample config uses `!include` to import reusable components from the `packages/` directory.
 
-### Basic Structure
+### Basic structure
 
 ```yaml
 substitutions:
@@ -54,7 +54,7 @@ packages:
   bluetooth: !include packages/bluetooth.yaml
 ```
 
-### Extending Package Components
+### Extending package components
 
 Use `!extend` to override or add to components defined in packages:
 
@@ -73,14 +73,14 @@ binary_sensor:
       - rtttl.play: 'success:d=8,o=5,b=160:c,e,g'
 ```
 
-### Creating a New Configuration
+### Creating a new configuration
 
 1. Copy an existing sample (e.g., `ed1-message.sample.yaml`)
 2. Update the `substitutions` section with your device name
 3. Add or remove packages as needed
 4. Override display lambda and button behaviors for your use case
 
-## Secrets Setup
+## Secrets setup
 
 1. Copy the sample file:
    ```bash
@@ -101,11 +101,11 @@ binary_sensor:
    openssl rand -base64 32
    ```
 
-## Package Reference
+## Package reference
 
 The following sections describe what each package contains. These are automatically included when you use `!include packages/<name>.yaml`.
 
-### Core Configuration (packages/core.yaml)
+### Core configuration (packages/core.yaml)
 
 ```yaml
 esphome:
@@ -139,7 +139,7 @@ captive_portal:
 - **ap**: Fallback access point if WiFi fails
 - **captive_portal**: Web config when in AP mode
 
-### Hardware Buses (packages/hardware.yaml)
+### Hardware buses (packages/hardware.yaml)
 
 ```yaml
 spi:
@@ -170,7 +170,7 @@ font:
 
 The font file is included in the `fonts/` directory.
 
-### TFT Display (packages/display.yaml)
+### TFT display (packages/display.yaml)
 
 ```yaml
 display:
@@ -191,7 +191,7 @@ display:
 ```
 
 **Display Layout:**
-```
+```text
 ┌────────────────────────┐
 │     "ED1 FULL"         │  <- Green, large font
 │                        │
@@ -208,7 +208,7 @@ display:
 - `INITR_BLACKTAB`: Alternative initialization
 - `INITR_18REDTAB`: For 1.8" displays
 
-### LED Matrix Display (packages/led-matrix.yaml)
+### LED matrix display (packages/led-matrix.yaml)
 
 ```yaml
 display:
@@ -227,7 +227,7 @@ display:
 
 **pixel_mapper**: Handles the serpentine wiring pattern where odd columns are reversed.
 
-### LED Matrix Light (packages/led-matrix.yaml)
+### LED matrix light (packages/led-matrix.yaml)
 
 ```yaml
 light:
@@ -249,7 +249,7 @@ light:
 
 > **Note**: We use `esp32_rmt_led_strip` instead of `neopixelbus` for compatibility with the IR receiver. Both use the RMT peripheral but the native driver uses the newer ESP-IDF 5.x API.
 
-### Bluetooth Proxy (packages/bluetooth.yaml)
+### Bluetooth proxy (packages/bluetooth.yaml)
 
 ```yaml
 esp32_ble_tracker:
@@ -289,7 +289,7 @@ mqtt:
 - Use **MQTT** for multi-system integration (Node-RED, scripts, other devices)
 - Both can be used simultaneously
 
-### Stepper Motors (packages/stepper.yaml)
+### Stepper motors (packages/stepper.yaml)
 
 Controls two 28BYJ-48 stepper motors via the MCP23009 I2C GPIO expander and ULN2004A Darlington drivers.
 
@@ -350,7 +350,7 @@ switch:
 
 The buzzer uses PWM via the LEDC (LED Control) peripheral. Turning the switch on activates the buzzer with a continuous tone.
 
-### IR Receiver (packages/ir-receiver.yaml)
+### IR receiver (packages/ir-receiver.yaml)
 
 ```yaml
 remote_receiver:
@@ -373,7 +373,7 @@ remote_receiver:
 - IR codes appear in ESPHome logs, not as Home Assistant entities
 - Use to trigger automations based on remote control buttons
 
-### Touch Buttons (packages/buttons.yaml)
+### Touch buttons (packages/buttons.yaml)
 
 ```yaml
 esp32_touch:
@@ -427,7 +427,7 @@ sensor:
 
 **Note**: The `wifi_rssi` global provides a safe integer value for display code. Before the first WiFi signal reading (~10 seconds after boot), the sensor returns NaN which can cause display issues when cast to int. The global defaults to -100 dBm and updates on each reading.
 
-### Text Input (packages/led-matrix.yaml)
+### Text input (packages/led-matrix.yaml)
 
 ```yaml
 text:
@@ -444,7 +444,7 @@ Allows Home Assistant to send text to display on the LED matrix.
 
 ## Customization
 
-### Change Display Content
+### Change display content
 
 Modify the `lambda` in the display section:
 
@@ -454,7 +454,7 @@ lambda: |-
   it.print(0, 0, id(pixel_font), Color(255, 0, 0), "Custom Text");
 ```
 
-### Add Button Actions
+### Add button actions
 
 ```yaml
 binary_sensor:
@@ -467,7 +467,7 @@ binary_sensor:
       - light.toggle: led_matrix_light
 ```
 
-### Adjust Matrix Brightness
+### Adjust matrix brightness
 
 Change `color_correct` values (0-100%):
 ```yaml
@@ -477,33 +477,33 @@ color_correct: [100%, 100%, 100%]  # Full brightness
 
 ## Troubleshooting
 
-### Device Not Detected via USB
+### Device not detected via USB
 The ED1 uses a CP2102N USB-to-UART chip. Install the driver:
 - Download from [Silicon Labs CP210x Drivers](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers)
 - Install for your OS (Windows, macOS, Linux)
 - Reconnect the USB cable
 - The device should appear as `/dev/ttyUSB0` (Linux), `/dev/cu.SLAB_USBtoUART` (macOS), or `COM3` (Windows)
 
-### Display Shows Garbage
+### Display shows garbage
 - Check `model` setting matches your display
 - Try adjusting `col_start` and `row_start` offsets
 - Verify SPI pins are correct
 
-### Touch Buttons Not Working
+### Touch buttons not working
 - Enable `setup_mode: true` in `esp32_touch`
 - Check logs for raw touch values
 - Adjust threshold based on idle vs touched values
 
-### LED Matrix Wrong Colors
+### LED matrix wrong colors
 - Change `rgb_order` from `GRB` to `RGB` or `BRG`
 - Some strips use different color orders
 
-### WiFi Connection Issues
+### WiFi connection issues
 - Check signal strength sensor
 - Reduce `update_interval` on sensors to reduce traffic
 - Try static IP configuration
 
-### Device Not Discovered
+### Device not discovered
 - Ensure API encryption key matches
 - Check Home Assistant logs for connection attempts
 - Verify device is on same network subnet
