@@ -198,13 +198,13 @@ display:
 **Display layout:**
 
 ```mermaid
-block-beta
-    columns 1
-    block:display["TFT 128x128"]
+flowchart TB
+    subgraph display["TFT 128x128"]
         A["'ED1 FULL' — green, large font"]
         B["192.168.1.100 — IP address"]
         C["T: 45.2 C — CPU temp"]
         D["Matrix text — yellow"]
+        A ~~~ B ~~~ C ~~~ D
     end
 ```
 

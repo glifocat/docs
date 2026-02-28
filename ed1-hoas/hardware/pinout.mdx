@@ -67,14 +67,12 @@ GPIO21 (SDA), GPIO22 (SCL).
 
 ## Touch button mapping
 
-```mermaid
-block-beta
-    columns 3
-    space UP["UP · GPIO4"] space
-    LEFT["LEFT · GPIO2"] TFT["TFT Display"] RIGHT["RIGHT · GPIO27"]
-    OK["OK · GPIO15"] space X["X · GPIO14"]
-    space DOWN["DOWN · GPIO13"] space
-```
+|             | Left           | Center         | Right            |
+| ----------- | -------------- | -------------- | ---------------- |
+| **Top**     |                | UP · GPIO4     |                  |
+| **Middle**  | LEFT · GPIO2   | TFT Display    | RIGHT · GPIO27   |
+| **Lower**   | OK · GPIO15    |                | X · GPIO14       |
+| **Bottom**  |                | DOWN · GPIO13  |                  |
 
 ## Analog inputs
 
