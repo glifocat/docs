@@ -197,16 +197,12 @@ display:
 
 **Display layout:**
 
-```mermaid
-flowchart TB
-    subgraph display["TFT 128x128"]
-        A["'ED1 FULL' — green, large font"]
-        B["192.168.1.100 — IP address"]
-        C["T: 45.2 C — CPU temp"]
-        D["Matrix text — yellow"]
-        A ~~~ B ~~~ C ~~~ D
-    end
-```
+| Line | Content             | Color  |
+| ---- | ------------------- | ------ |
+| 1    | "ED1 FULL"          | Green  |
+| 2    | IP address          | White  |
+| 3    | CPU temperature     | White  |
+| 4    | Matrix text         | Yellow |
 
 **Model Options:**
 - `INITR_GREENTAB`: Use with `row_start: 3` for 1.44" 128x128 displays (equivalent to Adafruit's INITR_144GREENTAB)
