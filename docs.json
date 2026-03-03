@@ -25,10 +25,12 @@
         "groups": [
           {
             "group": "Getting started",
+            "icon": "rocket",
             "pages": ["ed1-hoas/overview", "ed1-hoas/quick-start"]
           },
           {
             "group": "Hardware",
+            "icon": "microchip",
             "pages": [
               "ed1-hoas/introduction",
               "ed1-hoas/hardware/overview",
@@ -37,6 +39,7 @@
           },
           {
             "group": "ESPHome",
+            "icon": "code",
             "pages": [
               "ed1-hoas/esphome/configuration",
               "ed1-hoas/esphome/home-assistant",
@@ -45,6 +48,7 @@
           },
           {
             "group": "Project",
+            "icon": "heart",
             "pages": ["ed1-hoas/attribution", "ed1-hoas/sponsors"]
           }
         ]
