@@ -1,1 +1,11 @@
-CLAUDE.md
+# Claude Code
+.claude/
+
+# Playwright MCP
+.playwright-mcp/
+
+# OS
+.DS_Store
+
+# Dependencies
+node_modules/
