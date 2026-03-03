@@ -25,11 +25,15 @@
         "groups": [
           {
             "group": "Getting started",
-            "pages": ["ed1-hoas/introduction", "ed1-hoas/getting-started"]
+            "pages": ["ed1-hoas/overview", "ed1-hoas/quick-start"]
           },
           {
             "group": "Hardware",
-            "pages": ["ed1-hoas/hardware/overview", "ed1-hoas/hardware/pinout"]
+            "pages": [
+              "ed1-hoas/introduction",
+              "ed1-hoas/hardware/overview",
+              "ed1-hoas/hardware/pinout"
+            ]
           },
           {
             "group": "ESPHome",
