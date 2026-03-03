@@ -38,19 +38,15 @@
               "ed1-hoas/esphome/home-assistant",
               "ed1-hoas/esphome/smartir"
             ]
+          },
+          {
+            "group": "Project",
+            "pages": ["ed1-hoas/attribution", "ed1-hoas/sponsors"]
           }
         ]
       }
     ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "GitHub",
-          "href": "https://github.com/glifocat",
-          "icon": "github"
-        }
-      ]
-    }
+    "global": {}
   },
   "navbar": {
     "links": [
